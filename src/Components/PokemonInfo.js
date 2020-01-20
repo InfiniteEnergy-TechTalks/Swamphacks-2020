@@ -16,6 +16,13 @@ export default ({ pokemon }) => (
                 />
             </div>
         </div>
+        <div className='row'>
+            <div className='col'>
+                <PokemonMoves
+                    moves={pokemon.moves}
+                />
+            </div>
+        </div>
     </div>
 )
 
@@ -42,4 +49,19 @@ const PokemonDescription = ({ name, height, baseExperience }) => (
             </tr>
         </tbody>
     </table> 
+);
+
+const PokemonMoves = ({ moves }) => (
+    <React.Fragment>
+        <table className='table table-bordered'>
+        {
+            moves && moves.map(
+                (move, index) => (
+                    <tr key={index}>
+                        <td>{move.move.name}</td>
+                    </tr>
+                ))
+        }
+        </table>
+    </React.Fragment>
 );
