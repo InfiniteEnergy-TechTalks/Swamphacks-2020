@@ -1,4 +1,5 @@
 import React from 'react';
+import '../poke-hax-stylesheet.css';
 
 export default ({ pokemon }) => (
     <div className='pokemon-basic-info' style={ pokemon.image ? { display: 'block'} : {display: 'none'}}>
@@ -8,6 +9,8 @@ export default ({ pokemon }) => (
                     image={pokemon.image}
                 />
             </div>
+        </div>
+        <div className='row'>
             <div className='col'>
                 <PokemonDescription
                     name={pokemon.name}
@@ -28,33 +31,40 @@ export default ({ pokemon }) => (
 
 const PokemonImage = ({ image }) => (
     <div className='pokemon-image'>
-        <img src={image} alt='pokemon' />
+        <img className='figure-img img-fluid rounded' src={image} alt='pokemon' />
     </div>
 );
 
 const PokemonDescription = ({ name, height, baseExperience }) => (
-    <table className='table table-bordered'>
-        <tbody>
-            <tr>
-                <th scope='col'>Name</th>
-                <td>{name}</td>
-            </tr>
-            <tr>
-                <th scope='col'>Height</th>
-                <td>{height}</td>
-            </tr>
-            <tr>
-                <th scope='col'>Base XP</th>
-                <td>{baseExperience}</td>
-            </tr>
-        </tbody>
-    </table> 
+    <React.Fragment>
+        <div className='row justify-content-center'>
+            <PokemonDescriptionBox
+                pokemonProperty={name}
+                pokemonPropertyType='Name'
+            />
+            <PokemonDescriptionBox
+                pokemonProperty={height}
+                pokemonPropertyType='Height'
+            />
+            <PokemonDescriptionBox
+                pokemonProperty={baseExperience}
+                pokemonPropertyType='Base XP'
+            />
+            </div>
+    </React.Fragment>
+);
+
+const PokemonDescriptionBox = ({ pokemonProperty, pokemonPropertyType, color = '' }) => (
+    <div className='pokemon-description-box'>
+        <p className='pokemon-description-title-text'>{pokemonProperty}</p>
+        <p className='pokemon-description-type-text'>{pokemonPropertyType}</p>
+    </div>
 );
 
 const PokemonMoves = ({ moves }) => (
     <React.Fragment>
-        <table className='table table-bordered'>
-            <thead>
+        <table className='table table-striped table-sm'>
+            <thead className='thead-dark'>
                 <tr>
                 <th>Name</th>
                 <th>Type</th>
@@ -67,7 +77,7 @@ const PokemonMoves = ({ moves }) => (
             {
                 moves && moves.map(
                     (move, index) => (
-                        <tr key={index}>
+                        <tr className='table-row' key={index}>
                             <td>{move.name}</td>
                             <td>{move.type}</td>
                             <td>{move.pp}</td>

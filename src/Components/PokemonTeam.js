@@ -1,8 +1,8 @@
 import React from 'react';
 
 export default ({ team, onSelect }) => (
-    <table className='table table-striped'>
-        <thead>
+    <table className='table table-sm table-striped'>
+        <thead className='thead-dark'>
             <tr>
                 <th>Team</th>
             </tr>
@@ -10,7 +10,7 @@ export default ({ team, onSelect }) => (
         <tbody>
             {
                 team.map((pokemon, index) => (
-                    <tr key={index}>
+                    <tr key={index} className='table-row'>
                         <td onClick={() => onSelect(pokemon.name)}>
                             <img src={pokemon.image} alt={pokemon.name}/>
                         </td>

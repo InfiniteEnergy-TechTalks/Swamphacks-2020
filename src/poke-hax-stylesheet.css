@@ -1,0 +1,29 @@
+.pokemon-description-box {
+    padding-left: 7rem;
+    padding-right: 7rem;
+    border-left: 1px lightgrey solid;
+    border-right: 1px lightgrey solid;
+    margin-bottom: 1.5rem;
+    color: grey;
+}
+
+.pokemon-description-box:hover {
+    background-color: lightgrey;
+    color: black;
+    transition: 0.3s;
+}
+
+.pokemon-description-title-text {
+    text-transform: uppercase;
+    font-weight: lighter;
+    font-size: larger;
+}
+.pokemon-description-type-text {
+    text-transform: capitalize;
+    font-size: small;
+}
+
+.table-row:hover {
+    background-color: lightgrey !important;
+    transition: 0.25s;
+}
