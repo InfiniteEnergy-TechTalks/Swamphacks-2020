@@ -8,6 +8,7 @@ export const getPokemonByName = async (name) => {
         const moves = await getDetailedMoves(pokemon.moves);
 
         return {
+            id: pokemon.id,
             name: pokemon.name,
             height: pokemon.height,
             baseExperience: pokemon.base_experience,
