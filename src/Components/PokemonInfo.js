@@ -1,5 +1,4 @@
 import React from 'react';
-import '../poke-hax-stylesheet.css';
 
 export default ({ pokemon }) => (
     <div className='pokemon-basic-info' style={ pokemon.image ? { display: 'block'} : {display: 'none'}}>
