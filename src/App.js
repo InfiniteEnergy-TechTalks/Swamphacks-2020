@@ -5,8 +5,9 @@ import SearchBar from './Components/SearchBar';
 import PokemonInfo from './Components/PokemonInfo';
 import PokemonTeam from './Components/PokemonTeam';
 import { getPokemonByName } from './pokemon-utilities/pokemon-api';
-import { saveTeamMember } from './Firebase/TeamDb';
+import { saveTeamMember, getTeam, deleteTeamMember } from './Firebase/TeamDb';
 import './App.css';
+import TeamIdBar from './Components/TeamIdBar';
 
 function App() {
   const [pokemonName, setPokemonName] = useState('');
@@ -17,7 +18,7 @@ function App() {
   const onSelectPokemon = async (pokemonName) => {
     const pokemon = await getPokemonByName(pokemonName);
 
-    if(!pokemon){
+    if(!pokemon) {
       setPokemon({});
       return;
     }
@@ -26,7 +27,7 @@ function App() {
   };
 
   const updatePokemonTeam = () => {
-    if(Object.keys(pokemon).length === 0){
+    if(Object.keys(pokemon).length === 0 || pokemonTeam.find(element => element.name === pokemon.name)) {
       return;
     }
 
@@ -37,17 +38,22 @@ function App() {
     if(teamId === '') {
       const team = uuid()
       setTeamId(team);
-      saveTeamMember(team, pokemon.id);
+      saveTeamMember(team, pokemon.name);
     } else {
-      saveTeamMember(teamId, pokemon.id);
+      saveTeamMember(teamId, pokemon.name);
     }
 
     if(newPokemonTeam.length >= 6){
+      deleteTeamMember(teamId, newPokemonTeam[0].name);
       newPokemonTeam.splice(0, 1);
     }
 
     newPokemonTeam.push(pokemon);
     setPokemonTeam(newPokemonTeam);
+  }
+
+  const onReload = async () => {
+    setPokemonTeam(await getTeam(teamId));
   }
 
   return (
@@ -66,6 +72,11 @@ function App() {
               setPokemonName={setPokemonName}
               onSearch={() => onSelectPokemon(pokemonName)}
               onAddToTeam={updatePokemonTeam}
+            />
+            <TeamIdBar
+              teamId={teamId}
+              setTeamId={setTeamId}
+              onReload={onReload}
             />
             <PokemonInfo
               pokemon={pokemon}

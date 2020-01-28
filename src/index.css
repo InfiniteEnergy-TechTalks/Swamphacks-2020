@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+.team-id-bar {
+  margin-top: 1%;
+}
+
 .pokemon-description-box {
   padding-left: 7rem;
   padding-right: 7rem;
